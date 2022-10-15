@@ -1,0 +1,66 @@
+# Query: customer-home
+# ContextLines: 1
+
+ar
+16 results - 5 files
+
+ecom\views.py:
+  64      if is_customer(request.user):
+  65:         return redirect('customer-home')
+  66      else:
+
+ecommerce\urls.py:
+  43      path('customerlogin', LoginView.as_view(template_name='ecom/customerlogin.html'),name='customerlogin'),
+  44:     path('customer-home', views.customer_home_view,name='customer-home'),
+  45      path('my-order', views.my_order_view,name='my-order'),
+
+templates\ecom\customer_base.html:
+   96            <li class="list-li fw-bold">
+   97:             <a href="{% url 'customer-home' %}">Home</a>
+   98            </li>
+   99            <li class="list-li fw-bold">
+  100:             <a href="{% url 'customer-home' %}">All</a>
+  101            </li>
+
+  103            <li class="list-li fw-bold">
+  104:             <a href="{% url 'customer-home' %}?category={{category.name}}" class="category-name">{{category.name}}</a>
+  105            </li>
+
+  131        <li class="nav-item my-4 d-none d-sm-none d-md-block">
+  132:         <a href="{% url 'customer-home' %}" class="nav-link text-uppercase fw-bold mx-2 navs">Home</a>
+  133        </li>
+  134        <li class="nav-item my-4 d-none d-sm-none d-md-block">
+  135:         <a href="{% url 'customer-home' %}" class="nav-link text-uppercase fw-bold mx-2 navs">All</a>
+  136        </li>
+
+  138        <li class="nav-item my-4 d-none d-sm-none d-md-block">
+  139:         <a href="{% url 'customer-home' %}?category={{category.name}}" class="nav-link text-uppercase fw-bold mx-2 navs">{{category.name}}</a>
+  140        </li>
+
+templates\ecom\customer_navbar.html:
+   88                <li class="list-li fw-bold">
+   89:                 <a href="{% url 'customer-home' %}">Home</a>
+   90                </li>
+   91                <li class="list-li fw-bold">
+   92:                 <a href="{% url 'customer-home' %}">All</a>
+   93                </li>
+
+   95                <li class="list-li fw-bold">
+   96:                 <a href="{% url 'customer-home' %}?category={{category.name}}" class="category-name">{{category.name}}</a>
+   97                </li>
+
+  123            <li class="nav-item my-4 d-none d-sm-none d-md-block">
+  124:             <a href="{% url 'customer-home' %}" class="nav-link text-uppercase fw-bold mx-2 navs">Home</a>
+  125            </li>
+  126            <li class="nav-item my-4 d-none d-sm-none d-md-block">
+  127:             <a href="{% url 'customer-home' %}" class="nav-link text-uppercase fw-bold mx-2 navs">All</a>
+  128            </li>
+
+  130            <li class="nav-item my-4 d-none d-sm-none d-md-block">
+  131:             <a href="{% url 'customer-home' %}?category={{category.name}}" class="nav-link text-uppercase fw-bold mx-2 navs">{{category.name}}</a>
+  132            </li>
+
+templates\ecom\payment_success.html:
+  41            <p class="text-secondary text-center">We are delighted to inform you that we received your payments</p>
+  42:           <a href="/customer-home" class="btn text-white text-uppercase fw-bold m-3 ok-btns">Continue Shopping</a>
+  43        </div>

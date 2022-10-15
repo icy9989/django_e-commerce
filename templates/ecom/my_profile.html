@@ -1,0 +1,55 @@
+{% extends 'ecom/customer_base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+
+ .profile-img-boxes {
+  width: 200px;
+  height: 200px;
+  background-color: aquamarine;
+  border-radius: 50%;
+  overflow: hidden;
+ }
+
+ .imgs {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+ }
+
+ .profile-cards {
+  background-color: #f4f4f4;
+ }
+
+ .edit-btns {
+  background-color: orange;
+ }
+
+ .edit-btns:focus {
+  box-shadow: none !important;
+ }
+
+</style>
+<div class="container d-flex justify-content-center align-items-center col-xl-4 col-lg-5 col-md-6 col-sm-8 col-10">
+   <div class="card profile-cards d-flex justify-content-center align-items-center p-4">
+    <div class="profile-img-boxes">
+      <img src="{% static customer.profile_pic.url %}" class="imgs" />
+    </div>
+    <div class="m-3 p-3">
+      <p><span class="h6">Username : </span><span>{{request.user}}</span></p>
+      <p><span class="h6">Address : </span><span>{{customer.address}}</span></p>
+      <p><span class="h6">Contact : </span><span>{{customer.mobile}}</span></p>
+    </div>
+    <a href="/edit-profile" class="btn text-white edit-btns">
+      Edit Profile
+    </a>
+  
+   </div>
+</div>
+<br><br><br><br><br><br>
+<!--
+developed By : sumit kumar
+-->
+
+{% endblock content %}

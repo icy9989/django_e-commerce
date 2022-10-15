@@ -1,0 +1,106 @@
+{% extends 'ecom/customer_base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .payment-cards {
+        background-color: #f4f4f4;
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        border: 2px solid orange;
+    }
+
+    .title {
+        color: orange;
+    }
+    
+    .amount-bgs {
+        background-color: white !important;
+    }
+
+    .form-group {
+        position: relative;
+    }
+
+    .fa-credit-card, .fa-calendar, .fa-question-circle {
+        color: #999;
+        position: absolute;
+        bottom: 13px;
+        right: 10px;
+    }
+
+    .form-control:focus + .fa-credit-card,
+    .form-control:focus + .fa-calendar,
+    .form-control:focus + .fa-question-circle {
+        color: orange;
+    }
+
+    .submit-btns {
+    color: wheat !important;
+    background-color: orange !important;
+    }
+
+    .submit-btns:focus {
+        box-shadow: none !important;
+    }
+
+</style>
+<body>
+    <div class="container">
+        <div class="card payment-cards mx-auto col-xl-6 col-lg-8 col-md-10 col-12">
+            <h3 class="text-center pt-4 title">Payment Details</h3>
+                <form class="px-5 pb-5" method="post">
+                    <div class="form-group my-3">
+                        <label class="text-secondary">Total Amount</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control text-secondary amount-bgs" readonly value={{total}} />
+                            <div class="input-group-append">
+                                <span class="input-group-text">MMK</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group my-3">
+                      <label class="text-secondary">Card Name</label>
+                      <input type="text" class="form-control text-secondary" id="cardNumber" placeholder="xxxx xxxx xxxx xxxx"
+                      required autofocus />
+                      <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group my-3">
+                                <label class="text-secondary">Expire Month</label>
+                                <input type="text" class="form-control text-secondary" id="expityMonth" placeholder="MM - 02" required />
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group my-3">
+                                <label class="text-secondary">Expire Year</label>
+                                <input type="text" class="form-control text-secondary" id="expityYear" placeholder="YY - 22" required />
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group my-3">
+                                <label class="text-secondary">Card Name</label>
+                                <input type="password" class="form-control text-secondary" id="cvCode" placeholder="CV - xxx" required />
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group my-3">
+                        <input type="checkbox" id="checkbox" />
+                        <label for="checkbox" class="text-secondary">Remember Me</label>    
+                    </div>
+                    <div class="d-grid">
+                        <a href="/payment-success" type="submit" class="btn btn-block fw-bold text-uppercase submit-btns">Pay</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+<br/><br/><br/><br/><br/>
+{% endblock content %}

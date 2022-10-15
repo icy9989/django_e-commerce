@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    {% load static %}
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- favicon -->
+<link href="img/icon/juice.png" rel="icon" type="image/png" />
+
+<!-- bootstrap css1 js2 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<!-- fontawesome css1 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- custom css -->
+<link href="../../static/css/homebase.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+    
+    <header id="home">
+        <!-- start navbar -->
+                
+        <nav class="navbar px-5 navbars">
+                      
+          <a href="/" class="navbar-brand px-3">
+              <img src="../../static/images/logo/eco-logo.png" class="logos" width="35px" alt="logo" />
+              <div class="coco-containers">
+                <span class="text-uppercase fw-bold m-3 coco-texts">Coco</span>
+              </div>
+          </a>
+    
+          <div class="d-flex justify-content-end align-items-center">
+            <div class="mx-4 d-none d-md-block">
+              <form action="/customer-search" method="get">
+                <div class="input-group">
+                  <input type="text" class="form-control" name="query" id="query" autocomplete="off" placeholder="search product">
+                  <div class="input-group-append">
+                    <button class="btn btn-danger" type="submit"><i class="py-1 fas fa-search"></i></button>
+                  </div>
+                </div>
+              </form>
+            </div>
+    
+            <div class="mx-4">
+              <a class="mt-3" href="/my-order">
+                <img src="../../static/images/logo/order.jpg" width="35px" height="35px" class="rounded-circle profile-imgs"/> 
+              </a>
+            </div>
+    
+            <div class="mx-4">
+              <a href="/customer-cart" class="mt-3" >
+                <i class="fas fa-shopping-cart"></i>
+              </a>
+              <span class="badge bg-orange badge-cart">{{ product_count_in_cart }}</span>
+            </div>
+    
+            <div class="mx-4">
+              <div class="dropdown">
+                <a class="mt-3" href="#" id="dropdownMenuLink" data-toggle="dropdown">
+                  <div class="profile-boxes">
+                    <img src="{% static customer.profile_pic.url %}" width="35px" height="35px" class="rounded-circle profile-imgs"/> 
+                  </div>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="/my-profile">View</a>
+                  <a class="dropdown-item" href="/logout">Log Out</a>
+                </div>
+              </div>
+            </div>
+    
+            <a class="mx-3 btn open-btn d-sm-block d-md-none">
+              <i class="fa-solid fa-bars"></i>
+            </a>
+          </div>
+    
+           <!--start mobile navbar-->
+           <div class="p-4 nav-menus nav-white">
+            <div class="d-flex justify-content-between align-items-center menu-borders">
+              <h5 class="text-danger fw-bolder">Categories</h5>
+              <a class="btn close-btn">
+                <i class="fas fa-close close-btn"></i>
+              </a> 
+            </div>
+            <ul class="list">
+              <li class="list-li fw-bold">
+                <a href="{% url 'customer-home' %}">Home</a>
+              </li>
+              <li class="list-li fw-bold">
+                <a href="{% url 'customer-product' %}">Trending</a>
+              </li>
+              {% for category in categories %}
+              <li class="list-li fw-bold">
+                <a href="{% url 'customer-home' %}?category={{category.name}}" class="category-name">{{category.name}}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <!--end mobile navbar-->
+    
+        </nav>
+        <!-- end navbar -->   
+      </div>
+    
+      <!-- start desktop navbar -->
+      <div class="row d-md-none">
+        <div class="col-md-8 col-10 mx-auto m-3">
+          <form  action="/customer-search" method="get">
+            <div class="input-group">
+              <input type="text" class="form-control" name="query" id="query" autocomplete="off" placeholder="search product">
+              <div class="input-group-append">
+                <button class="btn btn-danger" type="submit"><i class="fas fa-search py-1"></i></button>
+              </div>
+            </div>
+          </form> 
+        </div> 
+      </div>
+      
+      <div class="my-4 my-md-0">
+        <ul class="nav justify-content-center">
+          <li class="nav-item my-4 d-none d-sm-none d-md-block">
+            <a href="{% url 'customer-home' %}" class="nav-link text-uppercase fw-bold mx-2 navs">Home</a>
+          </li>
+          <li class="nav-item my-4 d-none d-sm-none d-md-block">
+            <a href="{% url 'customer-product' %}" class="nav-link text-uppercase fw-bold mx-2 navs">Trending</a>
+          </li>
+          {% for category in categories %}
+          <li class="nav-item my-4 d-none d-sm-none d-md-block">
+            <a href="{% url 'customer-home' %}?category={{category.name}}" class="nav-link text-uppercase fw-bold mx-2 navs">{{category.name}}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <!--end desktop navbar-->
+    
+      </header>
+    
+      <script>
+
+        const openBtn = document.querySelector('.open-btn');
+        const closeBtn = document.querySelector('.close-btn');
+        const navMenus = document.querySelector('.nav-menus');
+        
+        openBtn.addEventListener('click',()=>{
+            navMenus.classList.add('visible');
+        })
+        
+        closeBtn.addEventListener('click',()=>{
+            navMenus.classList.remove('visible');
+        })
+        
+     
+        </script>
+      
+       <!-- bootstrap css1 js2 -->
+       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
+  </body>
+</html>

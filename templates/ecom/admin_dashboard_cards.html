@@ -1,0 +1,59 @@
+<style>
+  .dashboard-cards {
+    background-color: orange;
+  }
+
+  .shopping-icons {
+    color: white;
+    font-size: 45px;
+  }
+
+</style>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-12 my-3">
+        <div class="card text-white dashboard-cards px-3 py-4">
+          <div class="d-flex justify-content-center align-items-center">
+            <div class="col-3">
+              <i class="fas fa-users fa-3x"></i>
+            </div>
+            <div class="col-9">           
+              <h5>Registered Customer</h5>
+              <h4>{{customercount}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-12 my-3">
+        <div class="card text-white dashboard-cards px-3 py-4">
+          <div class="d-flex justify-content-center align-items-center">
+            <div class="col-3">
+              <i class="fas fa-shopping-cart shopping-icons"></i>
+            </div>
+            <div class="col-9">           
+              <h5>Total Product</h5>
+              <h4>{{productcount}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-12 my-3">
+        <div class="card text-white dashboard-cards px-3 py-4">
+          <div class="d-flex justify-content-center align-items-center">
+            <div class="col-3">
+              <i class="fas fa-bar-chart fa-3x"></i>
+            </div>
+            <div class="col-9">           
+              <h5>Total Orders</h5>
+              <h4>{{ordercount}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+

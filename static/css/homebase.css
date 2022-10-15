@@ -1,0 +1,179 @@
+a { 
+    text-decoration: none; 
+  }
+
+  form {
+    margin-bottom: 0;
+  }
+  
+  .bg-orange {
+    background-color: orange;
+  }
+
+  .text-orange {
+    color: orange;
+  }
+  
+  body {
+    background-color: rgb(255, 255, 255);
+  }
+  
+  /*START NAVBAR*/
+  .navbars {
+      padding: 15px;
+      border-bottom: 1px solid rgb(224, 216, 216);  
+  }
+  
+  .navs {
+    color: #777;
+  }
+  
+  .navs:hover {
+    color: orange;
+  }
+  
+  .navs:focus {
+    color: orange;
+  }
+  
+  .coco-containers {
+    position: relative;
+    display: inline;
+  }
+  
+  .coco-texts {
+    font-size: 20px;
+    color: orange;
+    position: absolute;
+    top: -10px;
+  }
+  
+  .fa-bars,.fa-close {
+    font-size: 20px;
+  }
+  
+  .fa-shopping-cart {
+    font-size: 22px;
+    color: #000;
+  }
+  
+  .badge-cart {
+    position: absolute;
+    top: 15px;
+    right: 130px;
+  }
+  
+  /* END NAVBAR*/
+  
+  /* START BANNER SECTION */
+  .carouselitems {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+  
+  .carouselimgs {
+    width: 90vw;
+    height: 60vh;
+    object-fit: cover;
+  }
+  
+  .carouseltexts {
+    width: 50%;
+  
+    position: absolute;
+    top: 10%;
+    left: 10%;
+  }
+  
+  .banner-text-div {
+    width: 400px;
+  }
+  /* END BANNER SECTION */
+  
+  
+  /*START MOBILE NAVBAR*/
+  .menu-borders {
+    border-bottom: 2px solid rgb(224, 216, 216);
+  }
+  
+  .open-btn{
+    position: absolute;
+    top: 22px;
+    left: 0px;
+  }
+  
+  .nav-menus {
+    position: absolute;
+    top: 0;
+    left: 0;
+  
+    height: 100vh;
+  
+    transform: translateX(-100%);
+  
+    transition: all 0.3s ease-in-out;
+  
+    z-index: 1;
+  }
+  
+  .nav-menus.visible{
+    transform: translateX(0);
+  }
+  
+  .nav-white{
+    width:290px;
+    background-color: rgb(252, 246, 233);
+    box-shadow: 3px 3px 10px rgb(224, 216, 216);
+    position: fixed;
+    transition-delay: 0.4s;
+  }
+  
+  .nav-white.visible{
+    transition-delay: 0s;
+  }
+  
+  .list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .list-li {
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(215, 210, 210, 0.5);
+  }
+  
+  .list li{
+    margin: 20px 0;
+    list-style-type: none;
+  }
+  
+  .list li a{
+    color: #666;
+    text-decoration: none;
+  }
+  
+  .list ul{
+    padding-left: 20px;
+  }
+  
+  .toggle-ul1, .toggle-ul2, .toggle-ul3 {
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .ul1s, .ul2s, .ul3s{
+    display: none;
+    transition: all 0.5s;
+  }
+  
+  .ul1s.ul-visible, .ul2s.ul-visible, .ul3s.ul-visible {
+    display: block;
+  }
+/*END MOBILE NAVBAR*/
+
+.dropdown-item:hover {
+  color:#fff;
+  background-color: orange;
+}

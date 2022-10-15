@@ -1,0 +1,80 @@
+{% extends 'ecom/admin_base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  .title {
+    color: aliceblue;
+    background-color: orange;
+    letter-spacing: 0.4px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: inline-block;
+  }
+
+  .float {
+    width: 70px;
+    height: 70px;
+    background-color: orange;
+    border-radius: 50%;
+    box-shadow: 0 3px 10px #fedebe;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .float-positions {
+    right: 20px;
+    bottom: 20px;
+  }
+</style>
+<br>
+<div class="container" >
+  <div class="card table-cards">
+    <h5 class="mx-auto title mt-3">Total Products</h5>
+    <div class="card-body table-responsive-lg">
+      
+      <table class="table table-hover">
+        <thead style="background-color: #fedebe; color: rgb(156, 105, 11)">
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in products %}
+          {% if p %}
+          <tr>
+            <td><img src="{% static p.product_image.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
+            <td>{{p.name}}</td>
+            <td>{{p.description}}</td>
+            <td>{{p.category}}</td>
+            <td>{{p.price}}</td>
+            <td><a href="{% url 'update-product' p.id  %}" class="btn mx-lg-2"><i class="fas fa-edit text-primary"></i></a> <a href="{% url 'delete-product' p.id  %}" class="btn"><i class="fas fa-trash-alt text-danger"></i></a></td></td>
+          </tr>
+          {%else%}
+          <br><br><br>
+          <h1>No Products!!</h1>
+          {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="position-fixed float-positions">
+    <div class="float">
+      <a href="/admin-add-product"><i class="fas fa-plus fa-2x text-white"></i></a>
+    </div>
+  </div>
+
+  
+</div>
+
+{% endblock content %}

@@ -1,0 +1,361 @@
+{% extends 'ecom/homebase.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+/*START PRODUCT SECTION*/
+.title {
+  color: aliceblue;
+  background-color: orange;
+  letter-spacing: 0.4px;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  display: inline-block;
+}
+
+.cards {
+  padding: 10px 20px;
+  margin: 20px 10px;
+  border-radius: 10px; 
+  transition: all 0.3s;
+}
+
+.cards:hover {
+  box-shadow: 3px 3px 10px rgba(215, 210, 210, 0.5), -3px -3px 10px rgba(215, 210, 210, 0.5);
+}
+
+.card-imgs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.description-boxes {
+  height: 90px;
+}
+
+.product-imgs {
+  object-fit: cover;
+}
+
+.text-orange {
+  color: orange;
+}
+
+.services-boxes {
+  background-color: #f4f4f4;
+}
+/*END PRODUCT SECTION*/
+</style>
+
+ <!--start banner-->
+ <section id="corporation" class="px-5">
+  <div class="container-fluid">
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="bg-danger active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1" class="bg-danger"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2" class="bg-danger"></li>
+      </ol>
+
+      <div class="carousel-inner">
+        <div class="carousel-item active carouselitems">
+          <img src="../../static/images/banner/banner-1.jpg" class="carouselimgs" alt="freshfood"/>
+          <div class="carouseltexts">
+            <h3 class="text-danger mb-3">Trending Item</h3>
+            <div class="banner-text-div">
+              <h1 class="fw-bold">WOMEN'S LATEST FASHION SALE</h1>
+            </div>
+            <h3 class="text-secondary">starting at $ <span class="h1 fw-bold">15</span>.00</h3>
+            <button class="btn btn-danger mt-4">Read More</button>
+          </div>
+        </div>
+
+        <div class="carousel-item carouselitems">
+          <img src="../../static/images/banner/banner-2.jpg" class="carouselimgs" alt="freshfood"/>
+          <div class="carouseltexts">
+            <h3 class="text-danger mb-3">Trending Item</h3>
+            <div class="banner-text-div">
+              <h1 class="fw-bold">WOMEN'S LATEST FASHION SALE</h1>
+            </div>
+            <h3 class="text-secondary">starting at $ <span class="h1 fw-bold">15</span>.00</h3>
+            <button class="btn btn-danger mt-4">Read More</button>
+          </div>
+        </div>
+
+        <div class="carousel-item carouselitems">
+          <img src="../../static/images/banner/banner-3.jpg" class="carouselimgs" alt="freshfood"/>
+          <div class="carouseltexts">
+            <h3 class="text-danger mb-3">Trending Item</h3>
+            <div class="banner-text-div">
+              <h1 class="fw-bold">WOMEN'S LATEST FASHION SALE</h1>
+            </div>
+            <h3 class="text-secondary">starting at $ <span class="h1 fw-bold">15</span>.00</h3>
+            <button class="btn btn-danger mt-4">Read More</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+<!-- end banner -->
+
+<!-- Start Feature Section  -->
+<div class="p-5">
+  <div class="row">
+    <div class="col-lg-3 col-sm-6">
+      <div class="services-boxes p-4 m-2 d-flex justify-content-center align-items-center">
+        <img src="../../static/images/feature/service-icon-1.svg" width="50px" />
+        <h5 class="px-3">Free Shipping</h5>
+      </div>    
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="services-boxes p-4 m-2 d-flex justify-content-center align-items-center">
+        <img src="../../static/images/feature/service-icon-2.svg" width="50px" />
+        <h5 class="px-3">Easy Returns</h5>
+      </div>    
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="services-boxes p-4 m-2 d-flex justify-content-center align-items-center">
+        <img src="../../static/images/feature/service-icon-3.svg" width="50px" />
+        <h5 class="px-3">Secure Payment</h5>
+      </div>    
+    </div>
+    <div class="col-lg-3 col-sm-6">
+      <div class="services-boxes p-4 m-2 d-flex justify-content-center align-items-center">
+        <img src="../../static/images/feature/service-icon-4.svg" width="40px" />
+        <h5 class="px-3">Special Support</h5>
+      </div>    
+    </div>
+  </div>
+</div>
+<!-- End Feature Section  -->
+
+<!-- Start Product Section -->
+<section class="pt-5">
+  <div class="d-flex justify-content-center">
+    <h5 class="text-center title">Top Rated</h5>
+  </div>  
+  <div class="row px-4">
+    <div class="col-xl-3 col-lg-4 col-sm-6">
+      <div class="card cards">
+        <div class="card-imgs">
+          <img src="../../static/images/product/iphone-1.jfif" alt="product" class="product-imgs" width="250px" height="250px">
+        </div>
+        <div class="card-bodys my-3">
+          <div class="description-boxes">
+            <h6 class="text-danger text-uppercase">IPHONE 14 PRO</h6>
+            <p class="text-secondary">128GB Deep Purple</p>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>400000 MMK</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-sm-6">
+      <div class="card cards">
+        <div class="card-imgs">
+          <img src="../../static/images/product/adidas-tracksuit-2.webp" alt="product" class="product-imgs" width="250px" height="250px">
+        </div>
+        <div class="card-bodys my-3">
+          <div class="description-boxes">
+            <h6 class="text-danger text-uppercase">TRACKSUIT</h6>
+            <p class="text-secondary">Adicolor SST Tracksuit</p>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>30000 MMK</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-sm-6">
+      <div class="card cards">
+        <div class="card-imgs">
+          <img src="../../static/images/product/superstar-1.webp" alt="product" class="product-imgs" width="250px" height="250px">
+        </div>
+        <div class="card-bodys my-3">
+          <div class="description-boxes">
+            <h6 class="text-danger text-uppercase">SUPERSTAR</h6>
+            <p class="text-secondary">Adidas Superstar Shoes</p>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>80000 MMK</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-sm-6">
+      <div class="card cards">
+        <div class="card-imgs">
+          <img src="../../static/images/product/watch-9.webp" alt="product" class="product-imgs" width="250px" height="250px">
+        </div>
+        <div class="card-bodys my-3">
+          <div class="description-boxes">
+            <h6 class="text-danger text-uppercase">BABY-G</h6>
+            <p class="text-secondary">BA-120WLP-7A</p>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>15000 MMK</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>     
+
+  <div class="d-flex justify-content-center">
+    <h5 class="text-center title mt-5">Trending</h5>
+  </div>  
+  <div class="row px-4">
+    <div class="col-xl-3 col-lg-4 col-sm-6">
+      <div class="card cards">
+        <div class="card-imgs">
+          <img src="../../static/images/product/bag-6.webp" alt="product" class="product-imgs" width="250px" height="250px">
+        </div>
+        <div class="card-bodys my-3">
+          <div class="description-boxes">
+            <h6 class="text-danger text-uppercase">HANDBAG</h6>
+            <p class="text-secondary">Prada leather and fabric mini bag</p>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>25000 MMK</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-sm-6">
+      <div class="card cards">
+        <div class="card-imgs">
+          <img src="../../static/images/product/skII-1.jpg" alt="product" class="product-imgs" width="250px" height="250px">
+        </div>
+        <div class="card-bodys my-3">
+          <div class="description-boxes">
+            <h6 class="text-danger text-uppercase">ESSENCE</h6>
+            <p class="text-secondary">SK-II Facial Treatment Essence</p>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>10000 MMK</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-sm-6">
+      <div class="card cards">
+        <div class="card-imgs">
+          <img src="../../static/images/product/nikeAirMonarch-1.webp" alt="product" class="product-imgs" width="250px" height="250px">
+        </div>
+        <div class="card-bodys my-3">
+          <div class="description-boxes">
+            <h6 class="text-danger text-uppercase">NIKE AIR MONARCH IV</h6>
+            <p class="text-secondary">Men's Training Shoes</p>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>50000 MMK</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-sm-6">
+      <div class="card cards">
+        <div class="card-imgs">
+          <img src="../../static/images/product/laneige-2.jpg" alt="product" class="product-imgs" width="250px" height="250px">
+        </div>
+        <div class="card-bodys my-3">
+          <div class="description-boxes">
+            <h6 class="text-danger text-uppercase">LIP TINT</h6>
+            <p class="text-secondary">Laneige Two Tone Lip Tint</p>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>5000 MMK</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <h5 class="text-center title mt-5">Best Selling</h5>
+  </div>  
+  <div class="row px-4">
+    <div class="col-xl-3 col-lg-4 col-sm-6">
+      <div class="card cards">
+        <div class="card-imgs">
+          <img src="../../static/images/product/airpod-1.jfif" alt="product" class="product-imgs" width="250px" height="250px">
+        </div>
+        <div class="card-bodys my-3">
+          <div class="description-boxes">
+            <h6 class="text-danger text-uppercase">AIRPOD</h6>
+            <p class="text-secondary">Beats Fit Pro True Wireless Earbuds</p>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>30000 MMK</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-sm-6">
+      <div class="card cards">
+        <div class="card-imgs">
+          <img src="../../static/images/product/bag-1.webp" alt="product" class="product-imgs" width="250px" height="250px">
+        </div>
+        <div class="card-bodys my-3">
+          <div class="description-boxes">
+            <h6 class="text-danger text-uppercase">BACKPACK</h6>
+            <p class="text-secondary">Micro Mini Backpack</p>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>15000 MMK</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-sm-6">
+      <div class="card cards">
+        <div class="card-imgs">
+          <img src="../../static/images/product/mac-1.jfif" alt="product" class="product-imgs" width="250px" height="250px">
+        </div>
+        <div class="card-bodys my-3">
+          <div class="description-boxes">
+            <h6 class="text-danger text-uppercase">MACBOOK PRO</h6>
+            <p class="text-secondary">14-inch 512GB SSD Storage</p>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>800000 MMK</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-sm-6">
+      <div class="card cards">
+        <div class="card-imgs">
+          <img src="../../static/images/product/iwatch-10.jfif" alt="product" class="product-imgs" width="250px" height="250px">
+        </div>
+        <div class="card-bodys my-3">
+          <div class="description-boxes">
+            <h6 class="text-danger text-uppercase">APPLE WATCH SE</h6>
+            <p class="text-secondary">Silver Aluminum Case with Sport Band</p>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>60000 MMK</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+<!-- End Product Section -->
+
+<script>
+
+</script>
+<br><br><br><br><br><br>
+
+
+{% endblock content %}
+
+

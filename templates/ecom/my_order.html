@@ -1,0 +1,169 @@
+{% extends 'ecom/customer_base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .order-cards {
+       background-color: #f4f4f4;
+    }
+
+    .text-orange {
+        color: orange;
+    }
+
+    .product-cards {
+       background-color: #ffffff;
+    }
+
+    .track {
+    position: relative;
+    background-color: #ddd;
+    height: 7px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 60px;
+    margin-top: 50px
+}
+
+.track .step {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    width: 25%;
+    margin-top: -18px;
+    text-align: center;
+    position: relative
+}
+
+.track .step.active:before {
+    background: orange;
+}
+
+.track .step::before {
+    height: 7px;
+    position: absolute;
+    content: "";
+    width: 100%;
+    left: 0;
+    top: 18px
+}
+
+.track .step.active .icon {
+    background: orange;
+    color: #fff
+}
+
+.track .icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 40px;
+    position: relative;
+    border-radius: 100%;
+    background: #ddd;
+}
+
+.track .step.active .text {
+    font-weight: 400;
+    color: #000
+}
+
+.track .text {
+    display: block;
+    margin-top: 7px
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>
+<div class="container">
+    <div class="card order-cards p-3">
+        <h4 class="text-center text-secondary p-3"> My Orders / Tracking</h4>
+        {% if data %}
+            {% for products,order in data %}
+            <div class="card m-3 product-cards">
+                <div class="card-body">
+                    {%for product in products%}
+                    <div>
+                        <div class="row">
+                            <div class="col-md-2 col-6 my-md-0 my-3 text-center">
+                                <img src="{% static product.product_image.url %}" width="100px" />
+                            </div>
+                            <div class="col-md-3 col-6 my-md-0 my-3">
+                                <h6 class="text-danger text-uppercase">{{product.name}}</h6>
+                                <p class="text-secondary">{{product.description}}</p>
+                                <h6 class="text-secondary">{{product.price}} MMK</h6>
+                                
+                            </div>
+                            <div class="col-md-4 col-6 my-md-0 my-3">
+                                <h6>Shipment Address : </h6>
+                                <p class="text-secondary">{{order.address}}</p>
+                            </div>
+                            <div class="col-md-3 col-6 my-md-0 my-3">
+                                <div>
+                                    <h6 class="d-inline">Status : </h6>
+                                    {% if order.status == 'Pending'%}
+                                    <span class="badge bg-primary">{{order.status}}</span>
+                                    {% elif order.status == 'Delivered' %}
+                                    <span class="badge bg-success">{{order.status}}</span>
+                                    {% elif order.status == 'Out for Delivery' %}
+                                    <span class="badge bg-danger">{{order.status}}</span>
+                                    {%else%}
+                                    <span class="badge bg-warning">{{order.status}}</span>
+                                    {%endif%}
+                                </div>
+                                <div class="mt-4">
+                                    <h6 class="d-inline">Invoice : </h6>
+                                    <a href="{% url 'download-invoice' order.id product.id  %}" class="btn btn-danger btn-sm"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+
+                    <div class="track">
+                        {%if order.status == 'Pending' %}
+                        <div class="step active"> <span class="icon"> <i style="padding-top:7px;" class="fa fa-spinner"></i> </span> <span class="text">Order Pending</span> </div>
+                        <div class="step "> <span class="icon"> <i style="padding-top:7px;" class="fa fa-check"></i> </span> <span class="text"> Order Confirmed</span> </div>
+                        <div class="step "> <span class="icon"> <i style="padding-top:7px;" class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+                        <div class="step "> <span class="icon"> <i style="padding-top:7px;" class="fa fa-home"></i> </span> <span class="text">Delivered</span> </div>
+                        {%elif order.status == 'Order Confirmed' %}
+                        <div class="step active"> <span class="icon"> <i style="padding-top:7px;" class="fa fa-spinner"></i> </span> <span class="text">Order Pending</span> </div>
+                        <div class="step active"> <span class="icon"> <i style="padding-top:7px;" class="fa fa-check"></i> </span> <span class="text"> Order Confirmed</span> </div>
+                        <div class="step "> <span class="icon"> <i style="padding-top:7px;" class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+                        <div class="step "> <span class="icon"> <i style="padding-top:7px;" class="fa fa-home"></i> </span> <span class="text">Delivered</span> </div>
+                        {%elif order.status == 'Out for Delivery'%}
+                        <div class="step active"> <span class="icon"> <i style="padding-top:7px;" class="fa fa-spinner"></i> </span> <span class="text">Order Pending</span> </div>
+                        <div class="step active"> <span class="icon"> <i style="padding-top:7px;" class="fa fa-check"></i> </span> <span class="text"> Order Confirmed</span> </div>
+                        <div class="step active"> <span class="icon"> <i style="padding-top:7px;" class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+                        <div class="step "> <span class="icon"> <i style="padding-top:7px;" class="fa fa-home"></i> </span> <span class="text">Delivered</span> </div>
+                        {%else%}
+                        <div class="step active"> <span class="icon"> <i style="padding-top:7px;" class="fa fa-spinner"></i> </span> <span class="text">Order Pending</span> </div>
+                        <div class="step active"> <span class="icon"> <i style="padding-top:7px;" class="fa fa-check"></i> </span> <span class="text"> Order Confirmed</span> </div>
+                        <div class="step active"> <span class="icon"> <i style="padding-top:7px;" class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+                        <div class="step active"> <span class="icon"> <i style="padding-top:7px;" class="fa fa-home"></i> </span> <span class="text">Delivered</span> </div>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+        {% endif %}
+
+        {% if order_length == 0 %}
+            <div class="container text-center p-5">
+            <img src="../../static/images/icon/no-order-removebg-preview.png" width="200px" alt="no-cart">  
+            <h5 class="text-orange">No order yet</h5>
+            </div>
+        {% endif %}
+
+     
+    </div>
+</div>
+<br/><br/><br/><br/><br/>
+{% endblock content %}

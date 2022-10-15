@@ -1,0 +1,49 @@
+{% extends 'ecom/admin_base.html' %} 
+{% load widget_tweaks %} 
+{% block content %}
+
+<head>
+  <!-- custom css -->
+  <link href="../../static/css/login.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  
+  <div class="container col-xl-5 col-lg-6 col-md-8 col-sm-10 p-5">
+    <div class="card admin-cards text-colors">
+      <form class="px-5 pb-5" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2 class="text-center p-3 mt-4">Add Product</h2>
+        <div class="form-group p-3 m-3">
+          <label>Name</label>
+          {% render_field productForm.name class="form-control" autocomplete="off" placeholder="Product Name" %}
+        </div>
+        <div class="form-group p-3 m-3">
+          <label>Description</label>
+          {% render_field productForm.description class="form-control" autocomplete="off" placeholder="Description" %}
+        </div>
+        <div class="form-group p-3 m-3">
+          <label>Category</label>
+          {% render_field productForm.category class="form-control" autocomplete="off" placeholder="Category" %}
+          </div>
+        <div class="form-group p-3 m-3">
+          <label>Price</label>
+          {% render_field productForm.price class="form-control" autocomplete="off" placeholder="0" %}
+        </div>
+        <div class="form-group p-3 m-3">
+          <label>Image</label>
+          {% render_field productForm.product_image class="form-control" autocomplete="off"  placeholder="product_image" %}
+        </div>
+        <div class="d-grid p-3 m-3">
+          <button
+            type="submit"
+            class="btn btn-block fw-bold text-uppercase submit-btns"
+          >
+            Add
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+{% endblock content %}

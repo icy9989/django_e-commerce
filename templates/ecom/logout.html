@@ -1,0 +1,50 @@
+{% extends 'ecom/homebase.html' %}
+{% load static %}
+{% block content %}
+<br>
+<style>
+.logout-cards {
+    background-color: #f4f4f4;
+    width: 300px;
+}
+
+.check-containers {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #ffffff ;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.check-icons{
+    color: orange;
+}
+
+.ok-btns {
+    background-color: orange;
+}
+
+.ok-btns:focus {
+    outline: none;
+    box-shadow: none;
+}
+</style>
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="card p-3 d-flex justify-content-center align-items-center logout-cards">
+        <div class="check-containers">
+            <i class="fas fa-check fa-3x text check-icons"></i>
+        </div>
+        <h3 class="text-secondary mt-3">Success</h3>
+        <p class="text-secondary">You have been logout successfully</p>
+        <a href="{% url '' %}" class="btn text-white text-uppercase fw-bold m-3 ok-btns">OK</a>
+    </div>
+</div>
+
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br>
+
+{% endblock content %}

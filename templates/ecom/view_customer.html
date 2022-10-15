@@ -1,0 +1,50 @@
+{% extends 'ecom/admin_base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  .title {
+    color: aliceblue;
+    background-color: orange;
+    letter-spacing: 0.4px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: inline-block;
+  }
+</style>
+<br>
+<div class="container" >
+  <div class="card table-cards">
+    <h5 class="mx-auto title mt-3">Total Customers</h5>
+    <div class="card-body table-responsive-lg">
+      
+      <table class="table table-hover">
+        <thead style="background-color: #fedebe; color: rgb(156, 105, 11)">
+          <tr>
+            <th>Profile</th>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Address</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in customers %}
+          <tr>
+            <td><img src="{% static c.profile_pic.url %}" alt="Profile Pic" width="40px" height="40px" /></td>
+            <td>{{c.get_name}}</td>
+            <td>{{c.mobile}}</td>
+            <td>{{c.address}}</td>
+            <td><a href="{% url 'update-customer' c.id  %}" class="btn mx-lg-2"><i class="fas fa-edit text-primary"></i></a> <a href="{% url 'delete-customer' c.id  %}" class="btn"><i class="fas fa-trash-alt text-danger"></i></a></td></td>
+        </tr>
+      {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+  
+</div>
+
+{% endblock content %}

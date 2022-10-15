@@ -1,0 +1,66 @@
+{% extends 'ecom/admin_base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  .title {
+    color: aliceblue;
+    background-color: orange;
+    letter-spacing: 0.4px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: inline-block;
+  }
+</style>
+<br>
+<div class="container" >
+  <div class="card table-cards">
+    <h5 class="mx-auto title mt-3">Total Orders</h5>
+    <div class="card-body table-responsive-lg">
+      
+      <table class="table table-hover">
+        <thead style="background-color: #fedebe; color: rgb(156, 105, 11)">
+          <tr>
+            <th>Customer</th>
+            <th>Contact</th>
+            <th>Shipping Address</th>
+            <th>Product</th>
+            <th>Image</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product,customer,order in data %}
+          <tr>
+            {% for c in customer %}
+            <td> {{c.get_name}}</td>
+            <td>{{c.mobile}}</td>
+            <td>{{order.address}}</td>
+            {% endfor %}
+            {% for p in product %}
+            <td> {{p.name}}</td>
+            <td><img src="{% static p.product_image.url %}" alt="Profile Pic" height="40px" width="40px" /></td>
+            {% if order.status == 'Pending'%}
+            <td><span class="badge bg-primary mt-2 mx-3">{{order.status}}</span></td>
+            {% elif order.status == 'Delivered' %}
+            <td><span class="badge bg-success mt-2 mx-3">{{order.status}}</span></td>
+            {% elif order.status == 'Out for Delivery' %}
+            <td><span class="badge bg-danger mt-2 mx-3">{{order.status}}</span></td>
+            {%else%}
+            <td><span class="badge bg-warning mt-2 mx-3">{{order.status}}</span></td>
+            {%endif%}
+            <td><a href="{% url 'update-order' order.id  %}" class="btn mx-lg-2"><i class="fas fa-edit text-primary"></i></a> <a href="{% url 'delete-order' order.id  %}" class="btn"><i class="fas fa-trash-alt text-danger"></i></a></td></td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+  
+</div>
+
+{% endblock content %}

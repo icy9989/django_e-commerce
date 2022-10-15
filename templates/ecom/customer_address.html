@@ -1,0 +1,73 @@
+{% extends 'ecom/customer_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+<style type="text/css">
+.form {
+    padding: 30px 40px;
+}
+
+.text-orange {
+	color: orange;
+}
+
+.text-colors {
+    color: #777;
+}
+
+.admin-cards {
+    background-color: #f4f4f4 !important;
+}
+
+.form-control:focus {
+    box-shadow: none !important;
+    border: 2px solid orange !important;
+}
+
+.submit-btns {
+    color: wheat !important;
+    background-color: orange !important;
+}
+
+.submit-btns:focus {
+    box-shadow: none !important;
+}
+
+
+
+</style>
+{%if product_in_cart%}
+<div class="container col-xl-5 col-lg-6 col-md-8 col-sm-10 p-5">
+	<div class="card admin-cards text-colors">
+		<form class="px-5 pb-5" method="post">
+			{% csrf_token %}
+			<div class="form-group p-3 m-3">
+				<label>Email</label>
+				{% render_field addressForm.Email class="form-control" autocomplete="off" placeholder="Email" %}
+			  </div>
+			  <div class="form-group p-3 m-3">
+				<label>Mobile</label>
+				{% render_field addressForm.Mobile class="form-control" autocomplete="off" placeholder="Mobile" %}
+			  </div>
+			  <div class="form-group p-3 m-3">
+				<label>Shipment Address</label>
+				{% render_field addressForm.Address id="field5" class="form-control textareas" autocomplete="off" placeholder="Building Number,city, pin" %}
+			  </div>
+			  <div class="d-grid p-3 m-3">
+				<button type="submit" class="btn btn-block fw-bold text-uppercase submit-btns">Proceed To Pay</button>
+			  </div>
+			  
+		</form>
+	</div>
+</div>
+{%else%}
+<div class="container text-center p-5 my-5">
+    <img src="../../static/images/icon/no-product.png" width="200px" alt="no-product" />
+    <h5 class="text-orange">Add first product in the cart</h5>
+</div>
+{%endif%}
+
+<br/><br/><br/><br/><br/>
+
+{% endblock content %}

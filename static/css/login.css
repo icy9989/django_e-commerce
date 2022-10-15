@@ -1,0 +1,36 @@
+.form {
+    padding: 30px 40px;
+}
+
+.bg-orange {
+    background-color: orange;
+  }
+
+  .text-orange {
+    color: orange;
+  }
+
+.text-colors {
+    color: #777;
+}
+
+.admin-cards {
+    background-color: #f4f4f4 !important;
+     /* background-color: #fedebe !important; */
+}
+
+.form-control:focus {
+    box-shadow: none !important;
+    border: 2px solid orange !important;
+}
+
+.submit-btns {
+    color: wheat !important;
+    background-color: orange !important;
+}
+
+.submit-btns:focus {
+    box-shadow: none !important;
+}
+
+
