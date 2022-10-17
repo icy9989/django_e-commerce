@@ -1,7 +1,11 @@
 {% extends 'ecom/homebase.html' %}
 {% load static %}
 {% block content %}
-
+<head>
+  <!-- bootstrap css1 js2 -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+</head>
 <style>
 /*START PRODUCT SECTION*/
 .title {
@@ -21,7 +25,6 @@
   transition: all 0.3s;
 }
 
-
 .cards:hover {
   box-shadow: 3px 3px 10px rgba(215, 210, 210, 0.5), -3px -3px 10px rgba(215, 210, 210, 0.5);
 }
@@ -40,13 +43,24 @@
   object-fit: cover;
 }
 
+.services-boxes {
+  background-color: #f4f4f4;
+}
+
+.btn-orange {
+  background-color: orange;
+  color: white;
+}
+
+.banner-1 {
+   -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
 .text-orange {
   color: orange;
 }
 
-.services-boxes {
-  background-color: #f4f4f4;
-}
 /*END PRODUCT SECTION*/
 </style>
 
@@ -54,47 +68,47 @@
  <section id="corporation" class="px-5">
   <div class="container-fluid">
 
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
       <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="bg-danger active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1" class="bg-danger"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2" class="bg-danger"></li>
+        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="bg-danger active"></li>
+        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" class="bg-danger"></li>
+        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" class="bg-danger"></li>
       </ol>
 
       <div class="carousel-inner">
         <div class="carousel-item active carouselitems">
-          <img src="../../static/images/banner/banner-1.jpg" class="carouselimgs" alt="freshfood"/>
+          <img src="../../static/images/banner/banner1.webp" class="carouselimgs banner-1" alt="banner1"/>
           <div class="carouseltexts">
-            <h3 class="text-danger mb-3">Trending Item</h3>
+            <h3 class="text-danger mb-3">New Item</h3>
             <div class="banner-text-div">
-              <h1 class="fw-bold">WOMEN'S LATEST FASHION SALE</h1>
+              <h1 class="fw-bold text-white text-uppercase">Protection Cases For iphone</h1>
             </div>
-            <h3 class="text-secondary">starting at<span class="h5 fw-bold"> 50000 MMK</span></h3>
-            <button class="btn btn-danger mt-4">SHOP NOW</button>
+            <h3 class="text-secondary">starting at<span class="h5 fw-bold"> 5000 MMK</span></h3>
+            <button class="btn btn-danger text-white mt-4">SHOP NOW</button>
           </div>
         </div>
 
         <div class="carousel-item carouselitems">
-          <img src="../../static/images/product/nikeAirJordan-2.webp" class="carouselimgs" alt="freshfood"/>
+          <img src="../../static/images/banner/banner2.png" class="carouselimgs" alt="banner2"/>
           <div class="carouseltexts">
-            <h3 class="text-danger mb-3">Trending Item</h3>
+            <h3 class="text-warning mb-3">Best Selling Item</h3>
             <div class="banner-text-div">
-              <h1 class="fw-bold">WOMEN'S LATEST FASHION SALE</h1>
+              <h1 class="fw-bold text-white text-uppercase">ADIDAS SUPERSTAR SS 2022</h1>
             </div>
-            <h3 class="text-secondary">starting at <span class="h5 fw-bold"> 5000 MMK</span></h3>
-            <button class="btn btn-danger mt-4">SHOP</button>
+            <h3 class="text-secondary">starting at <span class="h5 fw-bold"> 50000 MMK</span></h3>
+            <button class="btn btn-warning text-white mt-4">SHOP NOW</button>
           </div>
         </div>
 
         <div class="carousel-item carouselitems">
-          <img src="../../static/images/banner/banner-3.jpg" class="carouselimgs" alt="freshfood"/>
+          <img src="../../static/images/banner/banner3.jpg" class="carouselimgs" alt="banner3"/>
           <div class="carouseltexts">
-            <h3 class="text-danger mb-3">Trending Item</h3>
+            <h3 class="text-orange mb-3">Trending Item</h3>
             <div class="banner-text-div">
-              <h1 class="fw-bold">WOMEN'S LATEST FASHION SALE</h1>
+              <h1 class="fw-bold text-muted">WOMEN'S LATEST FASHION SALE</h1>
             </div>
             <h3 class="text-secondary">starting at <span class="h5 fw-bold"> 10000 MMK</span></h3>
-            <button class="btn btn-danger mt-4">Read More</button>
+            <button class="btn btn-orange mt-4">SHOP NOW</button>
           </div>
         </div>
       </div>
@@ -156,7 +170,7 @@
           </div>
           <div class="d-flex justify-content-between align-items-center">
             <h5>{{p.price}} MMK</h5>
-            <a href="{% url 'add-to-cart' p.id  %}" class="btn"><i class="fas fa-shopping-cart"></i></a>
+            <a href="{% url 'add-to-cart' p.id  %}" class="btn"><i class="fas fa-shopping-cart text-orange"></i></a>
           </div>
         </div>
       </div>
@@ -168,17 +182,16 @@
     <img src="../../static/images/icon/no-product.png" width="200px" alt="no-product" />
     <h5 class="text-orange">No Product Found</h5>
   </div>
-  {%endif%}        
+  {%endif%}   
+  
 </section>
 <!-- End Product Section -->
+
+
+
 <script>
 const navs = document.querySelectorAll('.navs');
 const category = document.querySelector('.main-titles');
-const hide = document.querySelectorAll('.hides');
-
-hides.forEach(hide=> {
-  console.log(hide);
-})
 
 navs.forEach(nav=> {
   nav.addEventListener('click',()=>{

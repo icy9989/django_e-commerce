@@ -131,11 +131,11 @@ def delete_customer_view(request,pk):
 def update_customer_view(request,pk):
     customer=models.Customer.objects.get(id=pk)
     user=models.User.objects.get(id=customer.user_id)
-    userForm=forms.CustomerUserForm(instance=user)
+    userForm=forms.EditCustomerUserForm(instance=user)
     customerForm=forms.CustomerForm(instance=customer)
     mydict={'userForm':userForm,'customerForm':customerForm}
     if request.method=='POST':
-        userForm=forms.CustomerUserForm(request.POST,instance=user)
+        userForm=forms.EditCustomerUserForm(request.POST,instance=user)
         customerForm=forms.CustomerForm(request.POST,request.FILES,instance=customer)
         if userForm.is_valid() and customerForm.is_valid():
             user=userForm.save()
@@ -290,11 +290,9 @@ def add_to_cart_view(request,pk):
 
     return response
 
-
 # for checkout of cart
 def cart_view(request):
     category = request.GET.get('category')
-
     if category == None:
         products = models.Product.objects.order_by('-price')
     else:
@@ -462,7 +460,7 @@ def customer_add_to_cart_view(request,pk):
     else:
         product_count_in_cart=1
 
-    response = render(request, 'ecom/index.html',{'products':products,'product_count_in_cart':product_count_in_cart,'categories':categories,'customer':customer})
+    response = render(request, 'ecom/customer_home.html',{'products':products,'product_count_in_cart':product_count_in_cart,'categories':categories,'customer':customer})
 
     #adding product id to cookies
     if 'product_ids' in request.COOKIES:
@@ -486,6 +484,7 @@ def customer_cart_view(request):
     customer=models.Customer.objects.get(user_id=request.user.id)
 
     category = request.GET.get('category')
+    
 
     if category == None:
         products = models.Product.objects.order_by('-price')
@@ -616,6 +615,7 @@ def payment_success_view(request):
     # we will fetch product id from cookies then respective details from db
     # then we will create order objects and store in db
     # after that we will delete cookies because after order placed...cart should be empty
+
     customer=models.Customer.objects.get(user_id=request.user.id)
 
     products=None
@@ -645,7 +645,7 @@ def payment_success_view(request):
         models.Orders.objects.get_or_create(customer=customer,product=product,status='Pending',email=email,mobile=mobile,address=address)
 
     # after order placed cookies should be deleted
-    response = render(request,'ecom/payment_success.html')
+    response = render(request,'ecom/payment_success.html',{'customer':customer})
     response.delete_cookie('product_ids')
     response.delete_cookie('email')
     response.delete_cookie('mobile')

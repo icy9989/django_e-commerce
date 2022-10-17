@@ -10,6 +10,11 @@ a {
     background-color: orange;
   }
 
+  .btn-orange {
+    background-color: orange;
+    color: white;
+  }
+
   .text-orange {
     color: orange;
   }

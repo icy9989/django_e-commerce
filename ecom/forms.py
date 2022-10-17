@@ -9,6 +9,11 @@ class CustomerUserForm(forms.ModelForm):
         widgets = {
         'password': forms.PasswordInput()
         }
+
+class EditCustomerUserForm(forms.ModelForm):
+    class Meta:
+        model=User
+        fields=['first_name','last_name','username']
         
 class CustomerForm(forms.ModelForm):
     class Meta:
