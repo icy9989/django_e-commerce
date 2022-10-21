@@ -14,19 +14,34 @@ class EditCustomerUserForm(forms.ModelForm):
     class Meta:
         model=User
         fields=['first_name','last_name','username']
-        
+
 class CustomerForm(forms.ModelForm):
+    profile_pic = forms.ImageField(label='Company Logo',required=False, error_messages = {'invalid':"Image files only"}, widget=forms.FileInput)
     class Meta:
         model=models.Customer
         fields=['address','mobile','profile_pic']
 
+
 class ProductForm(forms.ModelForm):
+    product_image = forms.ImageField(label='Company Logo',required=False, error_messages = {'invalid':"Image files only"}, widget=forms.FileInput)
     class Meta:
         model=models.Product
         widgets = {
             'category': forms.Select(attrs={'class':'form.control'})
         }
-        fields=['name','price','description','category','product_image']
+        fields=['name','price','description','category','product_image','quantity']    
+# class CustomerForm(forms.ModelForm):
+#     class Meta:
+#         model=models.Customer
+#         fields=['address','mobile','profile_pic']
+
+# class ProductForm(forms.ModelForm):
+#     class Meta:
+#         model=models.Product
+#         widgets = {
+#             'category': forms.Select(attrs={'class':'form.control'})
+#         }
+#         fields=['name','price','description','category','product_image']
 
 #address of shipment
 class AddressForm(forms.Form):

@@ -1,6 +1,10 @@
 {% extends 'ecom/customer_base.html' %}
 {% load static %}
 {% block content %}
+<head>
+ <!-- jquery -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
 <style>
     .payment-cards {
         background-color: #f4f4f4;
@@ -45,40 +49,75 @@
         box-shadow: none !important;
     }
 
+    .form-group.success input{
+        border-color: #07f737;
+    }
+
+    .form-group.error input{
+        border-color: #f70707;
+    }
+
+    .form-group small{
+        color: red;
+        visibility: hidden;
+
+        position: absolute;
+        /* bottom: -15px;
+        left: 15px; */
+    }
+
+    .form-group.error small{
+        visibility: visible;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
 </style>
 <body>
     <div class="container">
         <div class="card payment-cards mx-auto col-xl-6 col-lg-8 col-md-10 col-12">
             <h3 class="text-center pt-4 title">Payment Details</h3>
-                <form class="px-5 pb-5" method="post">
+                <form id="form" class="px-5 pb-5" method="post">
                     <div class="form-group my-3">
                         <label class="text-secondary">Total Amount</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control text-secondary amount-bgs" readonly value={{total}} />
+                            <input type="text" class="form-control text-secondary amount-bgs total_input" value="0" readonly />
                             <div class="input-group-append">
                                 <span class="input-group-text">MMK</span>
                             </div>
                         </div>
                     </div>
                     <div class="form-group my-3">
-                      <label class="text-secondary">Card Name</label>
-                      <input type="text" class="form-control text-secondary" id="cardNumber" placeholder="xxxx xxxx xxxx xxxx"
+                      <label class="text-secondary">Card No</label>
+                      <input type="number" class="form-control text-secondary" id="cardNumber" placeholder="xxxx xxxx xxxx xxxx"
                       required autofocus />
                       <i class="fas fa-credit-card"></i>
+                      <small>Error Message</small>
                     </div>
                     <div class="row">
                         <div class="col-4">
                             <div class="form-group my-3">
                                 <label class="text-secondary">Expire Month</label>
-                                <input type="text" class="form-control text-secondary" id="expityMonth" placeholder="MM - 02" required />
+                                <input type="number" class="form-control text-secondary" id="expiryMonth" placeholder="MM - 02" required />
                                 <i class="fas fa-calendar"></i>
+                                <small>Error Message</small>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group my-3">
                                 <label class="text-secondary">Expire Year</label>
-                                <input type="text" class="form-control text-secondary" id="expityYear" placeholder="YY - 22" required />
+                                <input type="number" class="form-control text-secondary" id="expiryYear" placeholder="YY - 2022" required />
                                 <i class="fas fa-calendar"></i>
+                                <small>Error Message</small>
                             </div>
                         </div>
                         <div class="col-4">
@@ -86,16 +125,110 @@
                                 <label class="text-secondary">Card Name</label>
                                 <input type="password" class="form-control text-secondary" id="cvCode" placeholder="CV - xxx" required />
                                 <i class="fas fa-question-circle"></i>
+                                <small>Error Message</small>
                             </div>
                         </div>
                     </div>
-                    <div class="d-grid">
-                        <a href="/payment-success" type="submit" class="btn btn-block fw-bold text-uppercase submit-btns">Pay</a>
+                    <div class="d-grid mt-5">
+                        <a id="form-submit" type="submit" class="btn btn-block fw-bold text-uppercase submit-btns">Pay</a>
                     </div>
+
                 </form>
             </div>
         </div>
     </div>
+    <script>
+        const total = document.querySelector('.total_input');
+        var getItem = localStorage.getItem('update_total');
+        total.value = getItem;
+        
+        const form = document.getElementById('form-submit');
+        const cardNumber = document.getElementById('cardNumber');
+        const expiryMonth = document.getElementById('expiryMonth');
+        const expiryYear = document.getElementById('expiryYear');
+        const cardCode = document.getElementById('cvCode');
+
+        function showerror(input,message){
+            const formgroup = input.parentElement;
+            formgroup.className = "form-group error my-3";
+            const small = formgroup.querySelector('small');
+            small.innerText = message;
+	    }
+
+        function showsuccess(input) {
+            const formgroup = input.parentElement;
+            const formcontrol = input;
+            formgroup.className = "form-group success my-3";
+            formcontrol.classList.add('success');
+        }
+
+        function checkCardNumber(input) {
+            if(input.value.length != 16){
+                showerror(input,`${getfieldname(input)} must be exactly 16 numbers`);
+            } else {
+                showsuccess(input);
+            }
+        }
+
+        function checkMonthExpire(input,min,max) {
+            if(input.value.length < min){
+                showerror(input,`${getfieldname(input)} must be at least ${min} numbers`);
+            }
+            else if(input.value.length > max){
+                showerror(input,`${getfieldname(input)} must be less than ${max} numbers`);
+            }
+            else if(input.value < 1 || input.value > 12)
+            {
+                showerror(input,`${getfieldname(input)} must be between 1 and 12`);
+            }
+            else {
+                showsuccess(input);
+            }
+        }
+
+        function checkYearExpire(input) {
+            if(input.value.length != 4){
+                showerror(input,`${getfieldname(input)} must be 4 numbers`);
+            }
+            else if(input.value < 2022 || input.value > 2030)
+            {
+                showerror(input,`${getfieldname(input)} must be between 2022 and 2030`);
+            }
+            else {
+                showsuccess(input);
+            }
+        }
+
+        function checklength(input,min,max){
+		if(input.value.length < min){
+			showerror(input,`${getfieldname(input)} must be at least ${min} numbers`);
+		}
+		else if(input.value.length > max){
+			showerror(input,`${getfieldname(input)} must be less than ${max} numbers`);
+		}
+		else{
+			showsuccess(input);
+		}
+	}
+
+    function getfieldname(inputarr){
+        return inputarr.id.charAt(0).toUpperCase() + inputarr.id.slice(1);
+    }
+        
+    form.addEventListener('click',function(e){
+        e.preventDefault();
+        checkCardNumber(cardNumber);
+        checkMonthExpire(expiryMonth,1,2);
+        checkYearExpire(expiryYear);
+        checklength(cardCode,3,6);
+
+        if(cardNumber.classList.contains('success') && expiryMonth.classList.contains('success') && expiryYear.classList.contains('success') && cardCode.classList.contains('success')) {
+            form.setAttribute('href','/payment-success');
+            window.location.href = "/payment-success";
+        }
+	});
+
+    </script>
 </body>
 
 <br/><br/><br/><br/><br/>

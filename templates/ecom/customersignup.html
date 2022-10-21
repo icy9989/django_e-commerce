@@ -4,7 +4,6 @@
   <head>
     <meta charset="utf-8" />
     <title>Coco Online Shop</title>
-    <link href="img/icon/juice.png" rel="icon" type="image/png" />
 
     <!-- bootstrap css1 js2 -->
     <link
@@ -26,36 +25,69 @@
     <!-- custom css -->
     <link href="../../static/css/login.css" rel="stylesheet" type="text/css" />
   </head>
+
+  <style>
+    .form-group.success input{
+    border-color: green;
+}
+
+.form-group.error input{
+    border-color: red;
+}
+
+.form-group {
+	position: relative;
+}
+
+.form-group small{
+    color: red;
+    visibility: hidden;
+
+    position: absolute;
+    bottom: -15px;
+    left: 15px;
+}
+
+.form-group.error small{
+    visibility: visible;
+}
+  </style>
   <body>
     {% include "ecom/navbar.html" %}
     <div class="container col-xl-5 col-lg-6 col-md-8 col-sm-10 p-5">
       <div class="card admin-cards text-colors">
-        <form class="px-5 pb-5" method="post" enctype="multipart/form-data">
+        <form id="form" class="px-5 pb-5" method="post" enctype="multipart/form-data">
           {% csrf_token %}
           <h2 class="text-center text-orange p-3 mt-4">Customer Sign Up</h2>
           <div class="form-group p-3 m-3">
             <label>First Name</label>
-            {% render_field userForm.first_name class="form-control" autocomplete="off" placeholder="First Name" %}
+            {% render_field userForm.first_name class="form-control" id="firstname" autocomplete="off" placeholder="First Name" %}
+            <small>Error Message</small>
           </div>
           <div class="form-group p-3 m-3">
             <label>last Name</label>
-            {% render_field userForm.last_name class="form-control" autocomplete="off" placeholder="Last Name" %}
+            {% render_field userForm.last_name class="form-control" id="lastname" autocomplete="off" placeholder="Last Name" %}
+            <small>Error Message</small>
           </div>
           <div class="form-group p-3 m-3">
             <label>Username</label>
-            {% render_field userForm.username class="form-control" autocomplete="off" placeholder="Username" %}
+            {% render_field userForm.username class="form-control" id="username" autocomplete="off" placeholder="Username" %}
+            <small>Error Message</small>
           </div>
           <div class="form-group p-3 m-3">
             <label>Password</label>
-            {% render_field userForm.password class="form-control" autocomplete="off" placeholder="Password" %}
+            {% render_field userForm.password class="form-control" id="password" autocomplete="off" placeholder="Password" %}
+            <small>Error Message</small>
           </div>
           <div class="form-group p-3 m-3">
             <label>Address</label>
-            {% render_field customerForm.address class="form-control" autocomplete="off" placeholder="Address" %}
+            {% render_field customerForm.address class="form-control" id="address" autocomplete="off" placeholder="Address" %}
+            <small>Error Message</small>
           </div>
           <div class="form-group p-3 m-3">
             <label>Contact</label>
-            {% render_field customerForm.mobile class="form-control" autocomplete="off" placeholder="Contact" %}
+            {% render_field customerForm.mobile class="form-control" id="contact" autocomplete="off" placeholder="Contact" %}
+            <small>Error Message</small>
           </div>
           <div class="form-group p-3 m-3">
             <label>Profile</label>
@@ -75,5 +107,78 @@
     <br /><br /><br />
 
     {% include "ecom/footer.html" %}
+
+    <script>
+      const form = document.getElementById('form');
+      const firstname = document.getElementById('firstname');
+      const lastname = document.getElementById('lastname');
+      const username = document.getElementById('username');
+      const password = document.getElementById('password');
+      const address = document.getElementById('address');
+      const contact = document.getElementById('contact');
+    
+      function showerror(input,message){
+        const formgroup = input.parentElement;
+        formgroup.className = "form-group error p-3 m-3";
+        const small = formgroup.querySelector('small');
+        small.innerText = message;
+      }
+    
+      function showsuccess(input){
+          const formgroup = input.parentElement;
+        const formcontrol = input;
+          formgroup.className = "form-group success p-3 m-3";
+        formcontrol.classList.add('success');
+        }
+    
+      function checklength(input,min,max){
+        if(input.value.length < min){
+          showerror(input,`${getfieldname(input)} must be at least ${min} characters`);
+        }
+        else if(input.value.length > max){
+          showerror(input,`${getfieldname(input)} must be less than ${max} characters`);
+        }
+        else{
+          showsuccess(input);
+        }
+      }
+
+      function checkInput(input,min,max) {
+        const re = /^\d*\.?\d*$/;
+        if(input.value.length < min){
+          showerror(input,`${getfieldname(input)} must be at least ${min} characters`);
+        }
+        else if(input.value.length > max){
+          showerror(input,`${getfieldname(input)} must be less than ${max} characters`);
+        }
+        else{
+          if(re.test(input.value)){
+			    showsuccess(input);
+		    }else{
+			    showerror(input,`Only digit is allowed`);
+		    }
+        } 
+      
+      }
+    
+      function getfieldname(inputarr){
+          return inputarr.id.charAt(0).toUpperCase() + inputarr.id.slice(1);
+      }
+    
+      form.addEventListener('submit',function(e){
+        e.preventDefault();
+        checklength(firstname,3,20);
+        checklength(lastname,3,20);
+        checklength(username,5,30);
+        checklength(password,5,20);
+        checklength(address,5,50);
+        checkInput(contact,7,11);
+        if(firstname.classList.contains('success') && lastname.classList.contains('success') && username.classList.contains('success') && password.classList.contains('success') && address.classList.contains('success') && contact.classList.contains('success')) {
+          form.submit();
+        }
+      });
+    
+    </script>
+
   </body>
 </html>

@@ -22,6 +22,12 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+class SizeVariant(models.Model):
+    size_name = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.size_name
         
 
 class Product(models.Model):
@@ -30,6 +36,8 @@ class Product(models.Model):
     category= models.ForeignKey(Category,on_delete=models.CASCADE,default=True,null=False)
     price = models.PositiveIntegerField()
     description=models.CharField(max_length=40)
+    quantity = models.PositiveIntegerField()
+    size_variant = models.ManyToManyField(SizeVariant , blank=True)
     def __str__(self):
         return self.name
 

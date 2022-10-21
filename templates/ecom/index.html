@@ -5,6 +5,9 @@
   <!-- bootstrap css1 js2 -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+   <!-- jquery -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <style>
 /*START PRODUCT SECTION*/
@@ -61,6 +64,10 @@
   color: orange;
 }
 
+.size-boxes {
+  height: 100px;
+}
+
 /*END PRODUCT SECTION*/
 </style>
 
@@ -84,7 +91,6 @@
               <h1 class="fw-bold text-white text-uppercase">Protection Cases For iphone</h1>
             </div>
             <h3 class="text-secondary">starting at<span class="h5 fw-bold"> 5000 MMK</span></h3>
-            <button class="btn btn-danger text-white mt-4">SHOP NOW</button>
           </div>
         </div>
 
@@ -96,7 +102,6 @@
               <h1 class="fw-bold text-white text-uppercase">ADIDAS SUPERSTAR SS 2022</h1>
             </div>
             <h3 class="text-secondary">starting at <span class="h5 fw-bold"> 50000 MMK</span></h3>
-            <button class="btn btn-warning text-white mt-4">SHOP NOW</button>
           </div>
         </div>
 
@@ -108,7 +113,6 @@
               <h1 class="fw-bold text-muted">WOMEN'S LATEST FASHION SALE</h1>
             </div>
             <h3 class="text-secondary">starting at <span class="h5 fw-bold"> 10000 MMK</span></h3>
-            <button class="btn btn-orange mt-4">SHOP NOW</button>
           </div>
         </div>
       </div>
@@ -158,19 +162,37 @@
   {%if products%}
   <div class="row px-4">
     {% for p in products %}
-    <div class="col-xl-3 col-lg-4 col-sm-6">
+    <div class="col-xl-3 col-lg-4 col-sm-6 product-cards">
       <div class="card cards">
         <div class="card-imgs">
           <img src="{% static p.product_image.url %}" alt="product" class="product-imgs" width="250px" height="250px">
         </div>
         <div class="card-bodys my-3">
           <div class="description-boxes">
-            <h6 class="text-danger text-uppercase">{{p.name}}</h6>
-            <p class="text-secondary">{{p.description}}</p>
+            <h6 class="text-danger text-uppercase names">{{p.name}}</h6>
+            <p class="text-secondary descriptions">{{p.description}}</p>
           </div>
-          <div class="d-flex justify-content-between align-items-center">
-            <h5>{{p.price}} MMK</h5>
-            <a href="{% url 'add-to-cart' p.id  %}" class="btn"><i class="fas fa-shopping-cart text-orange"></i></a>
+          <div class="size-boxes">
+          <p>Product Instock : <span class="badge bg-danger quantitys">{{p.quantity}}</span></p>
+          {% if p.size_variant.count %}
+            <div class="form-group col-md">
+              <label class="text-warning fw-bold">Select size:</label>
+              <div class="mt-1">
+                    {% for size in p.size_variant.all %}
+                      <label class="custom-control custom-radio custom-control-inline px-3">
+                        <input type="radio" name="select_size" onchange="get_selected_size('{{size.size_name}}')" value="{{size.size_name}}" checked="" class="custom-control-input">
+                        <div class="custom-control-label">{{size.size_name}}</div>
+                      </label>
+                    {% endfor %}
+              </div>     
+            </div>
+            {% endif %} 
+            <input type="hidden" class="hide-values" />
+          </div>
+          <div class="d-flex justify-content-between align-items-center mt-5">
+            <h5 class="prices">{{p.price}} MMK</h5>
+            <input type="hidden" class="click-carts" value="{% url 'add-to-cart' p.id  %}" />
+            <!-- <a href="{% url 'add-to-cart' p.id  %}" class="btn"><i class="fas fa-shopping-cart text-orange"></i></a> -->
           </div>
         </div>
       </div>
@@ -200,6 +222,60 @@ navs.forEach(nav=> {
     console.log(category.textContent);
   })
 })
+
+$(document).ready(function() {
+  // $("input:radio").attr("checked", false);
+  // s = $('input[name="selected"]').val();
+  // console.log(s);
+  function get_selected_size(size) {
+    get_size = size;
+    localStorage.setItem('clicksize',get_size);
+    $('.hide-values').val(get_size);
+  }
+ 
+  $('.cards').each(function(i, obj) {
+  
+    $(this).click(function(e) {
+      var name = $(this).closest('.product-cards').find('.names').text();
+      var description = $(this).closest('.product-cards').find('.descriptions').text();
+      var price = $(this).closest('.product-cards').find('.prices').text();
+      var quantity = $(this).closest('.product-cards').find('.quantitys').text();
+      var image = $(this).closest('.product-cards').find('.product-imgs').attr('src');
+      // var cartbtn = $(this).closest('.product-cards').find('.btn').attr('href');
+      var cartbtn = $(this).closest('.product-cards').find('.click-carts').val();
+      // if ($(this).closest('.product-cards').find('input[name="select_size"]').attr('checked')) {
+      //   size = $(this).closest('.product-cards').find('input[name="select_size"]:checked').val();
+      //   $("input:radio").attr("checked", false);
+      // } else {
+      //   size = "";
+      // }
+
+      size = $(this).closest('.product-cards').find('input[name="select_size"]:checked').val()
+      // if($(this).closest('.product-cards').find('input[name="select_size"]:checked').val() == "on") {
+      //   $(this).closest('.product-cards').find('input[name="select_size"]:checked')
+      //   size = $(this).closest('.product-cards').find('.hide-values').val();
+      // } else {
+      //   size = "";
+      // }
+
+      product = {
+        'name':name,
+        'description':description,
+        'price':price,
+        'image':image,
+        'quantity':quantity,
+        'cartbtn':cartbtn,
+        'size':size
+      }
+
+      localStorage.setItem('product', JSON.stringify(product));
+      window.location.href = "/product-detail";
+    })
+    
+});
+  
+});
+
 
 </script>
 

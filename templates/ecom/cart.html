@@ -98,17 +98,18 @@
       <img src="../../static/images/icon/no-cart.png" width="200px" alt="no-cart">  
       <h5 class="text-orange">No product in the card</h5>
     </div>
-    {% endif %}
-    
+    {% endif %}     
+  </div>
   
-  </div>
-
-  <div class="d-flex justify-content-end mx-3 p-3">
-      <h5 class="text-secondary">Total : <span class="update-total">{{total}}</span> MMK</h5>
-  </div>
-  <div class="d-flex justify-content-end mx-3 px-3">
-   <a href="/customer-address" class="btn text-uppercase text-white fw-bold checkout-btns">Check out</a>
-</div>
+  <form action="{% url 'customer-address' %}">
+    <div class="d-flex justify-content-end mx-3 p-3">
+      <!-- <input type="text" class="form-control update_total" name="update_total" value="{{total}}" /> -->
+      <h5 class="text-secondary">Total : <span class="update_total">{{total}}</span> MMK</h5>
+    </div>
+    <div class="d-flex justify-content-end mx-3 px-3">
+     <button onclick="setGetParameter()" type="submit" class="btn text-uppercase text-white fw-bold checkout-btns">Check out</button>
+    </div>
+  </form>
  
   
 </div>
@@ -123,10 +124,10 @@ $(document).ready(function() {
     var value = parseInt(inc_value);
     if(value < 10) {
       value += 1;     
-      var total_price = $('.update-total').text();
+      var total_price = $('.update_total').text();
       var result = parseInt(total_price) + parseInt(price);
       $(this).closest('.product-data').find('.qty-input').text(value);
-      $('.update-total').text(result);
+      $('.update_total').text(result);
     }
   });
 
@@ -137,14 +138,38 @@ $(document).ready(function() {
     var value = parseInt(inc_value);
     if(value > 1) {
       value -= 1;
-      var total_price = $('.update-total').text();
+      var total_price = $('.update_total').text();
       var result = parseInt(total_price) - parseInt(price);
       $(this).closest('.product-data').find('.qty-input').text(value);
-      $('.update-total').text(result);
+      $('.update_total').text(result);
     }
   });
 
+  // function setGetParameter() {
+  //   var update_total= $('.update_total').val();
+  //   console.log(update_total);
+  //   $.ajax({
+  //     type: "POST",
+  //     url: '/customer-address',
+  //     data: {
+  //       'update_total':update_total
+  //     },
+  //     dataType: "json",
+  //     success: function(result) {
+  //       alert('Success');
+  //     }
+  //   })
+  // }
+
 })
+
+  function setGetParameter() {
+    var update_total= document.querySelector('.update_total').textContent;
+    console.log(update_total);
+    localStorage.setItem('update_total',update_total);
+    return false;
+  }
+
 </script>
 
 

@@ -1,0 +1,140 @@
+{% extends 'ecom/homebase.html' %}
+{% load static %}
+{% block content %}
+<head>
+  <!-- bootstrap css1 js2 -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+</head>
+<style>
+/*START PRODUCT SECTION*/
+.product-cards {
+  border-radius: 10px; 
+  box-shadow: 2px 2px 5px rgba(215, 210, 210, 0.5), -3px -3px 10px rgba(215, 210, 210, 0.5);
+  position: relative;
+}
+
+.img-containers {
+  width: 250px;
+  height: 250px;
+}
+
+.image {
+  object-fit: cover;
+}
+
+.btn-orange {
+  background-color: orange;
+  color: white;
+}
+
+.btn-orange:focus, .btn-orange:hover {
+  background-color: orange;
+  color: white;
+  outline: none;
+  box-shadow: none;
+}
+
+.text-orange {
+  color: orange;
+}
+
+.closes {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+@media screen and (max-width: 650px) {
+  .img-containers {
+    width: 180px;
+    height: 180px;
+  }
+
+  .image {
+    width: 180px;
+    height: 180px;
+  }
+
+  .name {
+    font-size: 20px;
+  }
+
+  .price {
+    font-size: 15px;
+  }
+
+  .bg-orange {
+    background-color: orange;
+  }
+
+}
+
+/*END PRODUCT SECTION*/
+</style>
+
+<!-- Start Product Section -->
+<section class="p-4">
+    <div class="col-xl-6 col-lg-8 col-md-10 col-12 mx-auto">
+      <div class="d-flex justify-content-center align-items-center product-cards py-5">
+        <a href="/" ><i class="fas fa-close closes text-secondary"></i></a> 
+        <div class="img-containers">
+          <img class="image" width="250px" height="250px" />
+        </div>
+        <div class="mx-5">
+          <h3 class="name text-danger text-uppercase pb-3"></h3>
+          <p class="description text-secondary"></p>
+          <p class="pb-3 text-warning fw-bold">Instock : <span class="quantity"></span></p>
+          <p class="pb-3 text-seconday">Size : <span class="badge bg-danger size"></span></p>
+          <h5 class="price mb-3"></h5>
+          <a class="btn btn-orange cartbtn mt-3">Add To Cart</i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<!-- End Product Section -->
+
+
+
+<script>
+const navs = document.querySelectorAll('.navs');
+const category = document.querySelector('.main-titles');
+const close = document.querySelector('.closes');
+var getItem = JSON.parse(localStorage.getItem('product'));
+
+// close.addEventListener('click',()=>{
+
+// })
+
+navs.forEach(nav=> {
+  nav.addEventListener('click',()=>{
+    console.log(nav.textContent);
+    category.textContent = nav.textContent;
+    console.log(category.textContent);
+  })
+})
+
+
+const name = document.querySelector('.name');
+const description = document.querySelector('.description');
+const quantity = document.querySelector('.quantity');
+const price = document.querySelector('.price');
+const image = document.querySelector('.image');
+const cartbtn = document.querySelector('.cartbtn');
+const size = document.querySelector('.size');
+
+name.textContent = getItem['name'];
+description.textContent = getItem['description'];
+quantity.textContent = getItem['quantity'];
+price.textContent = getItem['price'];
+size.textContent = getItem['size'];
+image.setAttribute('src',getItem['image']);
+cartbtn.setAttribute('href',getItem['cartbtn']);
+
+
+
+</script>
+
+<br/><br/><br/><br/><br/><br/>
+{% endblock content %}

@@ -34,25 +34,51 @@
     box-shadow: none !important;
 }
 
+.form-group.success input{
+    border-color: green;
+}
 
+.form-group.error input{
+    border-color: red;
+}
+
+.form-group {
+	position: relative;
+}
+
+.form-group small{
+    color: red;
+    visibility: hidden;
+
+    position: absolute;
+    bottom: -15px;
+    left: 15px;
+}
+
+.form-group.error small{
+    visibility: visible;
+}
 
 </style>
 {%if product_in_cart%}
 <div class="container col-xl-5 col-lg-6 col-md-8 col-sm-10 p-5">
 	<div class="card admin-cards text-colors">
-		<form class="px-5 pb-5" method="post">
+		<form id="form" class="px-5 pb-5" method="post">
 			{% csrf_token %}
 			<div class="form-group p-3 m-3">
 				<label>Email</label>
-				{% render_field addressForm.Email class="form-control" autocomplete="off" placeholder="Email" %}
+				{% render_field addressForm.Email class="form-control" id="email" autocomplete="off" placeholder="Email" %}
+				<small>Error message</small>
 			  </div>
 			  <div class="form-group p-3 m-3">
 				<label>Mobile</label>
-				{% render_field addressForm.Mobile class="form-control" autocomplete="off" placeholder="Mobile" %}
+				{% render_field addressForm.Mobile class="form-control" id="mobile" autocomplete="off" placeholder="Mobile" %}
+				<small>Error message</small>
 			  </div>
 			  <div class="form-group p-3 m-3">
 				<label>Shipment Address</label>
-				{% render_field addressForm.Address id="field5" class="form-control textareas" autocomplete="off" placeholder="Building Number,city, pin" %}
+				{% render_field addressForm.Address id="address" class="form-control textareas" autocomplete="off" placeholder="Building Number,city, pin" %}
+				<small>Error message</small>
 			  </div>
 			  <div class="d-grid p-3 m-3">
 				<button type="submit" class="btn btn-block fw-bold text-uppercase submit-btns">Proceed To Pay</button>
@@ -67,6 +93,64 @@
     <h5 class="text-orange">Add first product in the cart</h5>
 </div>
 {%endif%}
+<script>
+	const form = document.getElementById('form');
+	const email = document.getElementById('email');
+	const mobile = document.getElementById('mobile');
+	const address = document.getElementById('address');
+
+	function showerror(input,message){
+		const formgroup = input.parentElement;
+		formgroup.className = "form-group error p-3 m-3";
+		const small = formgroup.querySelector('small');
+		small.innerText = message;
+	}
+
+	function showsuccess(input){
+    	const formgroup = input.parentElement;
+		const formcontrol = input;
+    	formgroup.className = "form-group success p-3 m-3";
+		formcontrol.classList.add('success');
+    }
+
+	function checklength(input,min,max){
+		if(input.value.length < min){
+			showerror(input,`${getfieldname(input)} must be at least ${min} characters`);
+		}
+		else if(input.value.length > max){
+			showerror(input,`${getfieldname(input)} must be less than ${max} characters`);
+		}
+		else{
+			showsuccess(input);
+		}
+	}
+
+	function getfieldname(inputarr){
+    	return inputarr.id.charAt(0).toUpperCase() + inputarr.id.slice(1);
+	}
+
+
+	function checkemail(input){
+    	const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+		if(re.test(input.value)){
+			showsuccess(input);
+		}else{
+			showerror(input,`Email is not valid`);
+		}
+	}
+
+	form.addEventListener('submit',function(e){
+    	e.preventDefault();
+		checkemail(email);
+		checklength(mobile,7,11);
+		checklength(address,15,50);
+		if(mobile.classList.contains('success') && address.classList.contains('success')) {
+			form.submit();
+		}
+	});
+
+</script>
 
 <br/><br/><br/><br/><br/>
 
